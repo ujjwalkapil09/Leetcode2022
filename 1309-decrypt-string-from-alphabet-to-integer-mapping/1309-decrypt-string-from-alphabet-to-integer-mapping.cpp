@@ -5,7 +5,6 @@ public:
         for(int i=0;i<s.length();i++){
             string l;
             int o=i+2;
-            // if(s[o]!='\0'){
             if(s[i+1]!='\0'  && s[o]=='#'){
                 l+=s[i++];
                 l+=s[i++];
@@ -25,7 +24,6 @@ public:
                 ans+=u+96;
                 
             }
-            // }
         }
         return ans;
     }
