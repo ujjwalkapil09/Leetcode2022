@@ -5,9 +5,6 @@ public:
         for(int i=0;i<nums.size();i++){
             ans.push_back(nums[nums[i]]);
         }
-        for(auto itr:ans){
-            cout<<itr<<"\t";
-        }
         return ans;
     }
 };
