@@ -40,18 +40,13 @@ public:
                 reminder=1;
                 temp=0;
             }
-            // cout<<temp<<" temp ";
             sum=temp;
             if(temp>10){
                 temp=temp%10;
                 reminder=floor(sum/10);
             }
-            // cout<<reminder<<" ";
             sum+=temp;
-            // last_hold=reminder;
-            // cout<<sum;
             answer.push_back(temp);
-           
         }
          if(second.size()==first.size() && reminder>0){
                 answer.push_back(reminder);
@@ -68,22 +63,17 @@ public:
                 reminder=1;
                 temp=0;
             }
-            // cout<<temp<<" temp ";
             sum=temp;
             if(temp>10){
                 temp=temp%10;
                 reminder=floor(sum/10);
             }
-            // cout<<reminder<<" ";
             sum+=temp;
-            // cout<<sum;
-            // last_hold=reminder;
             answer.push_back(temp);
             i++;
             if(i==first.size() && reminder>0){
                 answer.push_back(reminder);
             }
-            // if(reminder)
         }
         while(i<second.size()){
             sum=0;
@@ -97,13 +87,11 @@ public:
                 reminder=1;
                 temp=0;
             }
-            // cout<<temp<<" temp ";
             sum=temp;
             if(temp>10){
                 temp=temp%10;
                 reminder=floor(sum/10);
             }
-            // cout<<reminder<<" ";
             sum+=temp;
             // cout<<sum;
             last_hold=reminder;
