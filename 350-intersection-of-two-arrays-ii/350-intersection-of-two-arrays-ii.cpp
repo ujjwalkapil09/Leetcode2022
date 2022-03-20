@@ -1,38 +1,23 @@
 class Solution {
 public:
-    int maxele(vector<int>& nums){
-        int max=0;
-        for(auto itr: nums){
-            if(max<itr){
-                max=itr;
-            }
-        }
-        return max;
-    }
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        int size1=nums1.size();
+        int size2=nums2.size();
         vector<int> answer;
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
         int i=0,j=0;
-        int temp=maxele(nums1)<maxele(nums2)?maxele(nums1):maxele(nums2);
-        int *arr1;
-        int *arr2;
-        arr1=new int[maxele(nums1)+1];
-        arr2=new int[maxele(nums2)+1];
-        for(int i=0;i<maxele(nums1)+1;i++)arr1[i]=0;
-        for(int i=0;i<maxele(nums2)+1;i++)arr2[i]=0;
-
-        for(auto itr: nums1){
-            arr1[itr]++;
-        }
-        for(auto itr: nums2){
-            arr2[itr]++;
-        }
-        // cout<<temp;
-        for(int i=0;i<=temp;i++){
-            if(arr1[i]!=0 && arr2[i]!=0){
-                int ch=arr1[i]<arr2[i]?arr1[i]:arr2[i];
-                for(int l=0;l<ch;l++){
-                    answer.push_back(i);
-                }
+        while(i<size1 && j<size2){
+            if(nums1[i]<nums2[j]){
+                i++;
+            }
+            else if(nums2[j]<nums1[i]){
+                j++;
+            }
+            else{
+                answer.push_back(nums1[i]);
+                i++;
+                j++;
             }
         }
         return answer;
