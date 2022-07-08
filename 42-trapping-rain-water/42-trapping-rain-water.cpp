@@ -28,11 +28,11 @@ public:
         right=maxright(height);
        
         for(int i=0;i<height.size();i++){
-            temp.push_back(min(left[i],right[i]));
+            temp.push_back(min(left[i],right[i])-height[i]);
         }
-        for(int i=0;i<height.size();i++){
-            temp[i]=temp[i]-height[i];
-        }
+        // for(int i=0;i<height.size();i++){
+        //     temp[i]=temp[i]-height[i];
+        // }
         int ans=0;
         for(auto itr: temp){
             ans+=itr;
