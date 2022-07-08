@@ -26,17 +26,14 @@ public:
         vector<int> left,right;
         left=maxleft(height);
         right=maxright(height);
-       
+       int ans=0;
         for(int i=0;i<height.size();i++){
-            left[i]=min(left[i],right[i])-height[i];
+            ans+=min(left[i],right[i])-height[i];
         }
         // for(int i=0;i<height.size();i++){
         //     temp[i]=temp[i]-height[i];
         // }
-        int ans=0;
-        for(auto itr: left){
-            ans+=itr;
-        }
+       
         return ans;
     }
 };
