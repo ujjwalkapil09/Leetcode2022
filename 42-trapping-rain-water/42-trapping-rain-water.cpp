@@ -23,18 +23,18 @@ public:
         return right;
     }
     int trap(vector<int>& height) {
-        vector<int> left,right,temp;
+        vector<int> left,right;
         left=maxleft(height);
         right=maxright(height);
        
         for(int i=0;i<height.size();i++){
-            temp.push_back(min(left[i],right[i])-height[i]);
+            left[i]=min(left[i],right[i])-height[i];
         }
         // for(int i=0;i<height.size();i++){
         //     temp[i]=temp[i]-height[i];
         // }
         int ans=0;
-        for(auto itr: temp){
+        for(auto itr: left){
             ans+=itr;
         }
         return ans;
