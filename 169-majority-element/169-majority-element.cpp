@@ -1,31 +1,15 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        if(nums.size()==1)return nums[0];
-        sort(nums.begin(),nums.end());
-        int check=floor(nums.size()/2);
-        // cout<<check;
-        int duplicate=nums[0];
-        int count=1;
-        int i;
-        for(i=1;i<nums.size();i++){
-            // cout<<"count: "<<count;
-            if(nums[i]!=duplicate){
-                // cout<<"dup";
-                if(count>check){
-                    // cout<<count;
-                    
-                    
-                    return duplicate;}
-                duplicate=nums[i];
-                count=1;
-                
+        int count=0;
+        int candidate=0;
+        for(int num:nums){
+            if(count==0){
+                candidate =num;
             }
-            else if(nums[i]==duplicate){
-                count++;
-                // cout<<"No dup";
-            }
+            if(num==candidate)count+=1;
+            else count-=1;
         }
-        return nums[i-1];
+        return candidate;
     }
 };
