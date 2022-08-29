@@ -1,38 +1,22 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        if(nums.size()==0)return 0;
-        if(nums.size()==1)return 1;
-        int temp=nums[0];
-        int count=1;
-        int pcount=0;
-        for(int i=1;i<nums.size();i++){
-            if(i>0){
-                temp=nums[i-1];
-            }
-            
-            if(temp+1==nums[i]){
-                count++;
-                // cout<<temp<<" "<<nums[i]<<" "<<count<<"-";
-                // cout<<"enter";
-            }
-            else if(temp==nums[i])continue;
-            else{
-                if(pcount<count){
-                    pcount=count;
-                    count=1;
+        set<int> hashset;
+        for(int it:nums){
+            hashset.insert(it);
+        }
+        int longest_steak=0;
+        for(auto num: nums){
+            if(!hashset.count(num-1)){
+                int currentsteak=1;
+                int current_num=num;
+                while(hashset.count(current_num+1)){
+                    current_num+=1;
+                    currentsteak++;
                 }
-                else{
-                count=1;
-                }
+                longest_steak=max(longest_steak,currentsteak);
             }
         }
-        cout<<"\n"<<count;
-        if(pcount<count){
-                    pcount=count;
-                    count=0;
-                }
-        return pcount;
+               return longest_steak;
     }
 };
