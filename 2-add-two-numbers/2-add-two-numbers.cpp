@@ -11,112 +11,65 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode *l4=NULL,*l5,*l6=NULL;
-        vector<int> first;
-        vector<int> second;
-        while(l1){
-            first.push_back(l1->val);
-            l1=l1->next;
-        }
-        while(l2){
-            second.push_back(l2->val);
-            l2=l2->next;
-        }
-        vector<int> answer;
-        int reminder=0;
-        int sum=0;
-        int last_hold;
-        int i;
-        int small=min(first.size(),second.size());
-        for(i=0;i<small;i++){
-            sum=0;
-            int temp=0;
-            temp+=reminder;
-            temp+=(first[i]+second[i]);
-            if(temp<10){
-                reminder=0;
+        int carry=0;
+        if(l1==NULL && l2==NULL) return NULL;
+        if(l1==NULL)return l2;
+        if(l2==NULL)return l1;
+        ListNode * p=l1, *q=l2,*temp,*ans,*answer;
+        int  count=0;
+        while(p && q){
+        temp=new ListNode;
+            temp->val=(p->val+q->val+carry)%10;
+            carry=(p->val+q->val+carry)/10;
+            if(count==0){
+               answer= ans=temp;
             }
-            if(temp==10){
-                reminder=1;
-                temp=0;
+            else{
+                ans->next=temp;
+            ans=ans->next;
             }
-            sum=temp;
-            if(temp>10){
-                temp=temp%10;
-                reminder=floor(sum/10);
-            }
-            sum+=temp;
-            answer.push_back(temp);
-        }
-         if(second.size()==first.size() && reminder>0){
-                answer.push_back(reminder);
-            }
-        while(i<first.size()){
-            sum=0;
-             int temp=0;
-            temp+=reminder;
-            temp+=first[i];
-            if(temp<10){
-                reminder=0;
-            }
-            if(temp==10){
-                reminder=1;
-                temp=0;
-            }
-            sum=temp;
-            if(temp>10){
-                temp=temp%10;
-                reminder=floor(sum/10);
-            }
-            sum+=temp;
-            answer.push_back(temp);
-            i++;
-            if(i==first.size() && reminder>0){
-                answer.push_back(reminder);
-            }
-        }
-        while(i<second.size()){
-            sum=0;
-            int temp=0;
-            temp+=reminder;
-            temp+=(second[i]);
-            if(temp<10){
-                reminder=0;
-            }
-            if(temp==10){
-                reminder=1;
-                temp=0;
-            }
-            sum=temp;
-            if(temp>10){
-                temp=temp%10;
-                reminder=floor(sum/10);
-            }
-            sum+=temp;
-            // cout<<sum;
-            last_hold=reminder;
-            answer.push_back(temp);
-            i++;
-            if(i==second.size() && reminder>0){
-                answer.push_back(reminder);
-            }
-        }
-        l4=new ListNode;
-        l4->val=answer[0];
-        l4->next=NULL;
-        l5=l4;
-        int j=1;
-        while(j<answer.size()){
-            l6=new ListNode;
-            l6->val=answer[j];
-            l6->next=NULL;
-            l5->next=l6;
-            l5=l6;
-            l6=NULL;
-            j++;
             
+            count++;
+            p=p->next;
+            q=q->next;
         }
-        
-return l4;
+        while(p){
+            temp=new ListNode;
+            temp->val=(p->val+carry)%10;
+            carry=(p->val+carry)/10;
+            if(count==0){
+               answer= ans=temp;
+            }
+            else{
+                ans->next=temp;
+            ans=ans->next;
+            }
+            
+            p=p->next;
+        }
+        while(q){
+            // cout<<"Enter into q";
+            temp=new ListNode;
+            temp->val=(q->val+carry)%10;
+            carry=(q->val+carry)/10;
+            if(count==0){
+               answer= ans=temp;
+            }
+            else{
+                ans->next=temp;
+            ans=ans->next;
+            }
+            
+            q=q->next;
+        }
+        // cout<<carry;
+        if(carry>0 && p==NULL && q==NULL){
+            temp=new ListNode;
+            temp->val=(carry)%10;
+            carry=(carry)/10;
+            ans->next=temp;
+            ans=ans->next;
+        }
+        return answer;
     }
 };
