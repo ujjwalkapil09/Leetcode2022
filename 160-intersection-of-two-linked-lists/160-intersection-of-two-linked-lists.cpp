@@ -8,19 +8,38 @@
  */
 class Solution {
 public:
+    int count(ListNode * n){
+        int a=0;
+        while(n){
+            a++;
+            n=n->next;
+        }
+        return a;
+    }
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode * p=headA,*q=headB;
-        set<ListNode*> hashmap;
-        while(p){
-            hashmap.insert(p);
-            p=p->next;
+        ListNode * a=headA,*b=headB,*c=headA,*d=headB;
+        int count1=count(a);
+        int count2=count(b);
+        ListNode * smaller,*greater;
+        if(count1>count2){
+             smaller=headB,greater=headA;
         }
-        while(q){
-            if(hashmap.count(q)){
-                return q;
+        else{
+            smaller=headA,greater=headB;
+        }
+        int differ =(count1>count2)?count1-count2:count2-count1;
+        while(differ--){
+            greater=greater->next;
+        }
+        cout<<smaller->val;
+        while(smaller && greater){
+            if(smaller==greater){
+                return greater;
             }
-            q=q->next;
+            smaller=smaller->next;
+            greater=greater->next;
         }
+        // cout<<differ;
         return NULL;
     }
 };
