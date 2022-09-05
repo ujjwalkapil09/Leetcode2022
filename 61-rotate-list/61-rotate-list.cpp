@@ -10,56 +10,41 @@
  */
 class Solution {
 public:
-    int counth(ListNode *u){
-        int ans=0;
-        while(u!=NULL){
-            ans++;
-            u=u->next;
+    int countt(ListNode *a){
+        int count=0;
+        while(a){
+            count++;
+            a=a->next;
         }
-        // cout<<ans;
-        return ans;
+        return count;
     }
     ListNode* rotateRight(ListNode* head, int k) {
-                ListNode *o=head;
-
-                int anss=counth(o);
-
-        if(head==NULL){
-            return NULL;
-        }
-        if(k==0 || anss==k){
-            return head;
-        }
+        if(head==NULL)return head;
+        if(k==0 || head->next==NULL)return head;
         
-        ListNode *p=head;
-        ListNode *l=head;
-        while(p->next!=NULL){
+        
+        ListNode * a=head,*p=head,*q,*r=head;
+        int len=countt(a);
+        
+        len=len-k%len;
+        cout<<len;
+        a=head;
+        if(len==countt(a)){
+            cout<<"Entered";
+        return head;
+        }
+        while(len--){
+            q=p;
             p=p->next;
         }
-        p->next=head;
-        int store;
-        // cout<<anss<<"ams";
-        if((anss-k)<0){
-            store=abs(k%anss);
-            // cout<<store<<"Stre";
-        anss=anss-store;}
-        else{
-            anss=anss-k;
+        ListNode * answer=q->next;
+        // cout<<answer->val;
+        q->next=NULL;
+        while(p->next!=NULL){
+            q=p;
+            p=p->next;
         }
-                        // cout<<anss<<"   ";
-
-       for(int i=0;i<anss;i++){
-            // cout<<"enered";
-            l=head;
-            head=head->next;
-        }
-        // cout<<l->val<<"l valy";
-        l->next=NULL;
-        
-        // l->next=h?ead;
-        
-        // l->next=NULL;
-        // cout<<p->val;
-        return head;
+        p->next=r;
+        return answer;
     }
 };
