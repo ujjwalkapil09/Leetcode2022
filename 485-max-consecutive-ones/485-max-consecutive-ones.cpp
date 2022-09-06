@@ -1,20 +1,18 @@
 class Solution {
 public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
-     int count=0;
-        int check=0;
-        for(auto itr:nums){
-            if(itr==0){
-                if(count>=check)check=count;
+        int count=0;
+        int bigcount=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==0){
+                bigcount=max(bigcount,count);
                 count=0;
             }
             else{
                 count++;
             }
-            // cout<<itr<<" ";
         }
-                        if(count>=check)check=count;
-
-        return check;
+        bigcount=max(bigcount,count);
+        return bigcount;
     }
 };
