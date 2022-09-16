@@ -1,52 +1,51 @@
 class Solution {
 public:
-    bool issafe1(int row,int col,vector<string> board,int n){
-        //check upper diagonal
-        int duprow=row;
-        int dupcol=col;
-        while(row>=0 && col>=0){
-            if(board[row][col]=='Q')return false;
-            row--;
-            col--;
-            
-        }
-        col=dupcol;
-        row=duprow;
+    bool issafe(vector<string>& ds,int row,int col,int size){
+        int fix_row=row;
+        int fix_col=col;
         while(col>=0){
-            if(board[row][col]=='Q')return false;
-            col--;
+            if(ds[row][col--]=='Q'){
+                return false;
+            }
         }
-        row=duprow;
-        col=dupcol;
-        while(row<n && col>=0){
-            if(board[row][col]=='Q')return false;
-            row++;
-            col--;
+        row=fix_row,col=fix_col;
+        while(row<size && col>=0){
+                if(ds[row++][col--]=='Q'){
+                    return false;
+            }
+        }
+        row=fix_row,col=fix_col;
+        while(row>=0 && col>=0){
+                if(ds[row--][col--]=='Q'){
+                    return false;
+            }
         }
         return true;
+        
     }
-    void solve(int col,vector<string> &board,vector<vector<string>> &ans,int n){
-        if(col==n){
-            ans.push_back(board);
-            return;
-        }
-        for(int row=0;row<n;row++){
-            if(issafe1(row,col,board,n)){
-                board[row][col]='Q';
-                solve(col+1,board,ans,n);
-                board[row][col]='.';
+        void func(int size,vector<vector<string>> & ans,vector<string>&ds,
+                 int row,int col){
+            if(col==size){
+                ans.push_back(ds);
+                return ;
             }
+        for(int i=0;i<size;i++){
+            if(issafe(ds,i,col,size)){
+                ds[i][col]='Q';
+                func(size,ans,ds,0,col+1);
+                ds[i][col]='.';
+            }
+            
         }
     }
     vector<vector<string>> solveNQueens(int n) {
-        vector<vector<string>> ans;
-        vector<string > board(n);
-        string s(n,'.');
+        vector<vector<string>> answer;
+        vector<string>ds(n);
+        string a(n,'.');
         for(int i=0;i<n;i++){
-            board[i]=s;
-            
-        } 
-        solve(0,board,ans,n);
-        return ans; 
+            ds[i]=a;
+        }
+        func(n,answer,ds,0,0);
+        return answer;
     }
 };
